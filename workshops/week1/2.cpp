@@ -2,11 +2,7 @@
 #include <vector>
 #include <cmath>
 
-double sum = 0;
-double avg = 0;
-double sDeviation = 0;
-
-void print_vector(std::vector<double>& func) {
+void PrintVector(std::vector<double>& func) {
   // Iterate through the values in the vector, printing them with a space between.
   for (int i = 0; i < func.size(); ++i) {
     std::cout << func[i] << " ";
@@ -15,7 +11,9 @@ void print_vector(std::vector<double>& func) {
   std::cout << std::endl;
 }
 
-double total(std::vector<double>& func) {
+double Total(std::vector<double>& func) {
+  // Declare variable sum double and = to 0.
+  double sum = 0;
   // Iterate through the vector, adding each value to the sum together.
   for (int i = 0; i < func.size(); i++) {
     sum += func[i];
@@ -24,14 +22,18 @@ double total(std::vector<double>& func) {
   return sum;
 }
 
-double mean(std::vector<double>& func) {
+double Mean(std::vector<double>& func) {
+  double sum = Total(func);
+  double avg = 0;
   // Sets the mean value (total/values) to the variable avg.
   avg = sum / func.size();
   // Return the full avg using the total function and this function.
   return avg;
 }
 
-double standard_deviation(std::vector<double>& func) {
+double StandardDeviation(std::vector<double>& func) {
+  double avg = Mean(func);
+  double sDeviation = 0;
   // Iterate through the full vector, perform the power of for each item, minus the avg.
   for (int i = 0; i < func.size(); ++i) {
     sDeviation += pow(func[i] - avg, 2);
@@ -44,15 +46,15 @@ double standard_deviation(std::vector<double>& func) {
 int main() {
   std::vector<double> data = {10.1, 11.2, 12.3, 13.4, 14.5, 15.6};
   // Print starting vector to show the values.
-  print_vector(data);
+  PrintVector(data);
   
   // Calculate the total of the above data vector.
-  std::cout << "Total value is: " << total(data) << std::endl;
+  std::cout << "Total value is: " << Total(data) << std::endl;
 
   // Calculate the mean average of the above data vector.
-  std::cout << "Mean value is: " << mean(data) << std::endl;
+  std::cout << "Mean value is: " << Mean(data) << std::endl;
   
   // Calculate the Standard Deviation of the above data vector.
-  std::cout << "Standard Deviation is: " << standard_deviation(data) << std::endl;
+  std::cout << "Standard Deviation is: " << StandardDeviation(data) << std::endl;
   return 0;
 }

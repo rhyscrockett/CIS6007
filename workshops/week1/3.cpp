@@ -2,16 +2,20 @@
 #include <vector>
 #include <cmath>
 
-// Hopefully make a function template to declare the variable sum, as a template meaning it loads the required type at compile time, working with Int, Double etc..
-
-// THIS IS THE MAIN PROBLEM.
-float sum = 0;
-float avg = 0;
-double sDeviation = 0;
-
+template<typename P>
+void PrintVector(std::vector<P> &func) {
+  // Iterate through the values in the vector, printing them with a space between.
+  for(int i = 0; i < func.size(); ++i) {
+    std::cout << func[i] << " ";
+  }
+  // Prints a new line after the vector list has finished printing.
+  std::cout << std::endl;
+}
 
 template<typename T>
 T Total(std::vector<T> &func) {
+  // Set sum to the value that will be passed by the data vector to T.
+  T sum = 0;
   for(int i = 0; i < func.size(); i++) {
     sum += func[i];
   }
@@ -20,12 +24,20 @@ T Total(std::vector<T> &func) {
 
 template<typename M>
 M Mean(std::vector<M> &func) {
+  // Set sum using the Total function to M.
+  M sum = Total(func);
+  // Set avg to the value that will be passed by the data vector to M.
+  M avg = 0;
   avg = sum / func.size();
   return avg;
 }
 
 template<typename S>
 double StandardDeviation(std::vector<S> &func) {
+  // Set avg using the Mean function to S.
+  S avg = Mean(func);
+  // Declare sDeviation a double and set to 0.
+  double sDeviation = 0;
   for(int i = 0; i < func.size(); ++i) {
     sDeviation += pow(func[i] - avg, 2);
   }
@@ -34,14 +46,29 @@ double StandardDeviation(std::vector<S> &func) {
 
 
 int main() {
-  //std::vector<int> data = {10, 11, 12, 13, 14, 15};
-  //std::vector<double> data = {10.1, 11.2, 12.3, 13.4, 14.5, 15.6};
-  std::vector<float> data = {10.11, 11.22, 12.33, 13.44, 14.55, 15.66};
+  // Declare the two test vectors, one INT and one DOUBLE.
+  std::vector<int> data = {10, 11, 12, 13, 14, 15};
+  std::vector<double> doubleData = {10.1, 11.2, 12.3, 13.4, 14.5, 15.6};
+
+  // Print the vectors to screen showing each element.
+  PrintVector(data);
+  PrintVector(doubleData);
+  std::cout << std::endl;
+
+  // Print total value of INT vector first, DOUBLE vector second.
+  std::cout << "Total value INT is: " << Total<int>(data) << std::endl;
+  std::cout << "Total value DOUBLE is: " << Total<double>(doubleData) << std::endl;
+  // Print new line
+  std::cout << std::endl;
+
+  // Print total mean of INT vector first, DOUBLE vector second.
+  std::cout << "Total mean INT value is: " << Mean<int>(data) << std::endl;
+  std::cout << "Total mean DOUBLE value is: " << Mean<double>(doubleData) << std::endl;
+  std::cout << std::endl;
   
-  std::cout << "Total value is: " << Total(data) << std::endl;
-
-  std::cout << "Total mean value is: " << Mean(data) << std::endl;
-
-  std::cout << "Standard Deviation is: " << StandardDeviation(data) << std::endl;
+  // Print the standard deviation of INT first, DOUBLE second.
+  std::cout << "Standard Deviation INT is: " << StandardDeviation<int>(data) << std::endl;
+  std::cout << "Standard Deviation DOUBLE is: " << StandardDeviation<double>(doubleData) << std::endl;
+  std::cout << std::endl;
   return 0;
 }
