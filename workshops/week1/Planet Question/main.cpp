@@ -77,7 +77,9 @@ int main(int argc, char const* argv[]) {
   
   std::vector<Planet*> solar_system;
 
-  solar_system.emplace_back(create_planet_object(config));
+  //solar_system.emplace_back(create_planet_object(config));
+  solar_system.emplace_back(new GasGiant(10.1, 1000, 1.0, "planet 1"));
+  solar_system.emplace_back(new DwarfPlanet(10.1, 1000, 1.0, "planet 2"));
   print_all_types(solar_system);
   
   return 0;
