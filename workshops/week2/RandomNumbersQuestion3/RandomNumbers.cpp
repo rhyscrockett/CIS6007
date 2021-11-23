@@ -51,7 +51,7 @@ int main() {
 
   auto aDuration = std::chrono::duration_cast<std::chrono::microseconds>(aEnd- aStart); // sum the duration in microseconds
 
-  std::cout << "Adder Time Taken: " << aDuration.count() << " ns. " << std::endl; // print time taken in ns
+  std::cout << "Adder Time Taken: " << aDuration.count() << " ms. " << std::endl; // print time taken in ns
 
   auto mStart = std::chrono::high_resolution_clock::now(); // start the clock
 
@@ -67,5 +67,5 @@ int main() {
 
   auto mDuration = std::chrono::duration_cast<std::chrono::microseconds>(mEnd - mStart); // sum the duration time taken in microseconds
 
-  std::cout << "Multiplier Time Take: " << mDuration.count() << " ns. " << std::endl; // print the time taken in ns
+  std::cout << "Multiplier Time Take: " << mDuration.count() << " ms. " << std::endl; // print the time taken in ns
 }

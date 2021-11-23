@@ -51,5 +51,5 @@ int main() {
 
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end- start); // sum the duration in microseconds
 
-  std::cout << "Adder Time Taken: " << duration.count() << " ns. " << std::endl; // print time taken in ns
+  std::cout << "Adder Time Taken: " << duration.count() << " ms. " << std::endl; // print time taken in ns
 }
