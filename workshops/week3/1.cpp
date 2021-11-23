@@ -31,5 +31,5 @@ void lecturer(const std::string &s, const int &limit) {
 
 int main() {
   // call the lecturer function with a string, and a limit
-  lecturer("Lecturer is teaching...", 10);
+  lecturer(std::string("Lecturer: is teaching..."), 10);
 }
