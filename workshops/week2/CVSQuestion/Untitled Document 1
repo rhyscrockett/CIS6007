@@ -1,0 +1,10 @@
+Consider the sensor_data.csv file and write a program to read and extract
+temperature and light level values in a suitable structure E.g., SensorReading.
+Use a suitable container to store a collection of sensor readings and write functions to
+display them.
+Note: consider using different structures such as map, set, and vectors to store this
+collection and compare their performance for following operations.
+Implement the following functions with the aid of either functors or lambda expressions.
+Obtain the average temperature and humidity levels
+Obtain the number of days the temperature went higher than 30 degreesFind the minimum and maximum temperature and light level values for a given
+date.
