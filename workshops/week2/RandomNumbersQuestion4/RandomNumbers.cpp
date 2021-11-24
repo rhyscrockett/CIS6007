@@ -41,6 +41,8 @@ int main() {
   // added a lambda to replace the function call.
   auto addLambda = [](int& item) {return item += 10;};
   std::for_each(data.begin(), data.end(), addLambda);
+  std::cout << "-----------------------\n";
+  printV(data, 10);
 
   /*
   // Addr to add value 10 (add(10) to all items in the vector<int> data.
@@ -60,6 +62,8 @@ int main() {
   // added a lambda to replace the function call for multiply
   auto multiplyLambda = [](int& item) {return item *= 2; };
   std::for_each(data.begin(), data.end(), multiplyLambda);
+  std::cout << "-----------------------\n";
+  printV(data, 10);
   
   /*
   Multiplier<int> multiply(2); // Use the Multiplier functor to multiply by 2
