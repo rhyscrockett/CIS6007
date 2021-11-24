@@ -82,8 +82,8 @@ int main() {
   std::cout << "The final unique numbers extracted from the vector are: " << std::endl;
 
   // default comparison
-  std::vector<int>::iterator it;
-  it = std::unique (data.begin(), data.end());
-  data.resize(std::distance(data.begin(), it));
-  printV(data, 10);
+  std::vector<int>::iterator it; // create an iterator variable with a vector
+  it = std::unique (data.begin(), data.end()); // iterate through the data vector from beginning to end finding unique values
+  data.resize(std::distance(data.begin(), it)); // after unique values have been identified, form a new array with that vector
+  printV(data, 10); // print the updated list
 }
