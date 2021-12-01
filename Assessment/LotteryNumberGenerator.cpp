@@ -35,7 +35,12 @@ int main () {
     }
     print(data); // print the first 6 elements of the vector
 
-    std::vector<int> ticket = create_copy(data); // create a new vector and the create_copy function on the data vector
-    print(ticket); // print the first 6 elements of the new vector
+    //std::vector<int> example = create_copy(data); // create a new vector and the create_copy function on the data vector
+    //print(example); // print the first 6 elements of the new vector
+
+    Tickets t1; // call the struct and create variable t1
+    t1.ticket = create_copy(data); // set t1 ticket vector from struct to copy the data vector generated above
+    print(t1.ticket); // print the t1 ticket
+
     return 0;
 }
