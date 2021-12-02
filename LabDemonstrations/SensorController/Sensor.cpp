@@ -33,11 +33,13 @@ std::ostream& operator<<(std::ostream& out, const Readings& sensor_data) {
     return out;
 }
 
+/* // old print statement
 void print(const std::string& s, const double& p) {
     std::cout << s;
     std::cout << p << " ";
     std::cout << std::endl;
 }
+*/
 
 void light_sensor() {
     std::unique_lock<std::mutex> lock(_mu);
