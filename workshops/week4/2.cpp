@@ -85,5 +85,4 @@ int main() {
     auto eTimer3 = std::chrono::high_resolution_clock::now();
     auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(eTimer3 - sTimer3);
     std::cout << "Execution Timer (4 Partitions): " << duration3.count() << " ms. " << std::endl;
-
 }
