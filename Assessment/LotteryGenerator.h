@@ -17,6 +17,7 @@ template<typename T>
 void print(const std::vector<T>& v) {
     if (v.empty())
       return;
+    std::cout << "Your Lottery Ticket: ";
     for (auto& i : v)
       std::cout << i << " ";
     std::cout << std::endl;
