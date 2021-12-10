@@ -2,24 +2,19 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <string>
 
 struct Ticket {
   std::string date;   // the date of the winning numbers
-  int no1;
-  int no2;
-  int no3;
-  int no4;
-  int no5;
-  int no6;
-  int no7;            // all the numbers from a ticket
+  int numbers[7];
   
   friend std::ostream& operator<<(std::ostream& out, const Ticket& value);
 };
 
 std::ostream& operator<<(std::ostream& out, const Ticket& value) {
-  out << "Date: " << value.date << ", No 1: '" << value.no1 << "', No 2: '" << value.no2
-    << "', No 3: '" << value.no3 << "', No 4: '" << value.no4 << "', No 5: '" << value.no5
-      << "', No 6: '" << value.no6 << "', No 7: '" << value.no7 << "'";
+  out << "Date: " << value.date << " {No 1: '" << value.numbers[0] << "', No 2: '" << value.numbers[1]
+    << "', No 3: '" << value.numbers[2] << "', No 4: '" << value.numbers[3] << "', No 5: '" << value.numbers[4]
+      << "', No 6: '" << value.numbers[5] << "', No 7: '" << value.numbers[6] << "'}";
   return out;
 }
 
@@ -51,19 +46,19 @@ void checkNumbers(const std::string &filename, std::vector<Ticket> &dataset) {
         if (counter == 2)
           ticket.date = value;
         else if (counter == 3)
-          ticket.no1 = std::stoi(value);
+          ticket.numbers[0] = std::stoi(value);
         else if (counter == 4)
-          ticket.no2 = std::stoi(value);
+          ticket.numbers[1] = std::stoi(value);
         else if (counter == 5)
-          ticket.no3 = std::stoi(value);
+          ticket.numbers[2] = std::stoi(value);
         else if (counter == 6)
-          ticket.no4 = std::stoi(value);
+          ticket.numbers[3] = std::stoi(value);
         else if (counter == 7)
-          ticket.no5 = std::stoi(value);
+          ticket.numbers[4] = std::stoi(value);
         else if (counter == 8)
-          ticket.no6 = std::stoi(value);
+          ticket.numbers[5] = std::stoi(value);
         else if (counter == 9)
-          ticket.no7 = std::stoi(value);
+          ticket.numbers[6] = std::stoi(value);
       }
       dataset.push_back(ticket);
     }
