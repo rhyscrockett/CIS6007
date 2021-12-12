@@ -5,12 +5,14 @@ class Rectangle : Shape {
     double width;
     double height;
 
-    Point* verticies;
+    Point* vertices;
 
 public:
     // Constructors
-    Rectangle(double _width, double _height) : width(_width), height(_height) {}
-
+    Rectangle(double _width, double _height) : width(_width), height(_height) {
+        vertices = nullptr;
+    }
+    friend std::ostream& operator<<(std::ostream& out, Rectangle &r);
 
     // Copy and Move Constructors
     Rectangle(const Rectangle& v);
@@ -18,6 +20,11 @@ public:
     Rectangle(Rectangle &&r);
     Rectangle& operator=(Rectangle &&r);
 
+    void setX(int _width) { width = _width; }
+    void setY(int _height) { height = _height; }
+
+    int getX() const { return width; }
+    int getY() const { return height; }
 
     // Implementations for Virtual Functions
     double get_area() const {
@@ -28,7 +35,7 @@ public:
         return 2 * (width + height);
     }
 
-    void move(const Point &to) {
+    void move(const Point &to) const {
         centre += to;
     }
 
@@ -37,5 +44,12 @@ public:
         std::cout << get_perimeter_length() << std::endl;
         std::cout << get_centre() << std::endl;
     }
-    ~Rectangle() { delete[] verticies; };
+
+    // Destructor
+    ~Rectangle() {
+        if (vertices != nullptr) {
+            delete[] vertices;
+            vertices = nullptr;
+        }
+    };
 };

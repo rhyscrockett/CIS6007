@@ -6,14 +6,16 @@ protected:
     Point centre;
 
 public:
+    // Virtual Methods
     virtual double get_area() const = 0;
     virtual double get_perimeter_length() const = 0;
-    virtual void move() const;
+    virtual void move(Point to);
     virtual void draw() const;
 
     Point get_centre() const {
         return centre;
     }
 
-    ~Shape() {}
+    // Destructor
+    ~Shape() = default;
 };

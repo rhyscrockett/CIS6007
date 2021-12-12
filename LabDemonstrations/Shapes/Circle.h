@@ -11,6 +11,7 @@ public:
     // Constructors
     Circle(double _radius) : radius(_radius){}
     
+    friend std::ostream& operator<<(std::ostream& out, Circle &c);
 
     // Copy and Move Constructors
     Circle(const Circle& v);
@@ -31,7 +32,10 @@ public:
         centre += to;
     } 
 
-   void draw() const {
+   void draw() const{
        get_area();
    }
+
+    // Destructor
+   ~Circle() = default;
 };
