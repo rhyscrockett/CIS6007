@@ -5,7 +5,6 @@
 #include <unordered_set>
 
 #include "IRandom.h"
-// generate numbers function: Using the IRandom class, the range for number generation is 1, 50 - NOTE: This removes duplicates next to each other, not across the entire vector!
 
 // Generate random numbers function
 void generateNumbers(std::vector<int> &vec) {
@@ -19,29 +18,13 @@ void generateNumbers(std::vector<int> &vec) {
     vec.resize(std::distance(vec.begin(), it));                                                // resize the vector based on the starting point and the 
 }
 
-/*
-// generate number function: Using the IRandom class, the range for number generation is 1, 50.
-void generateNumbers(std::vector<int> &vec) {
-  std::unordered_set<int> s;
-  IRandom rand(1, 50);
-  for (auto i = 0; i < 7; i++) {                                                                // Loop through the numbers generated and push to vec
-    int n = rand();                                                                             
-    vec.push_back(n);
-  }
-  auto end = std::remove_if(vec.begin(), vec.end(),                                             // lambda expression to use the unordered set to store the 
-                            [&s](int const &i) {                                                // vector created above and search through checking for duplicates
-                              return !s.insert(i).second;
-                            });
-  vec.erase(end, vec.end());                                                                    // erase the duplicates found in the set
-}
-*/
 // print function
-template<typename T>
-void print(const std::vector<T>& v) {
-    if (v.empty())
-      return;
-    std::cout << "Your Lottery Ticket: ";
-    for (auto& i : v)
+template<typename T>                                                                           // template function
+void print(const std::vector<T>& v) {                                                          // using the vector T
+    if (v.empty())                                                                             // check if empty or not
+      return;                                                                                  // return; end the function if empty
+    std::cout << "Your Lottery Ticket: ";                                                      // print string
+    for (auto& i : v)                                                                          // loop through the vector printing each number with a space " "
       std::cout << i << " ";
-    std::cout << std::endl;
+    std::cout << std::endl;                                                                    // new line
 }
