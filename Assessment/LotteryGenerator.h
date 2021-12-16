@@ -1,8 +1,8 @@
+#pragma once
 #include <iostream>
 #include <thread>
 #include <vector>
 #include <algorithm>
-#include <unordered_set>
 
 #include "IRandom.h"
 

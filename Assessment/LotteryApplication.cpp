@@ -3,20 +3,22 @@
 
 #include "LotteryGenerator.h"
 #include "LotteryResults.h"
+#include "LotteryChecker.h"
 
 int main() {
 
-    std::vector<int> tickets;
-    std::thread genTicket (generateNumbers, std::ref(tickets));
+    std::vector<int> ticket;
+    generateNumbers(std::ref(ticket));
 
-    std::vector<Ticket> dataset01;
-    std::thread readWinnings01 (checkNumbers, "Lottery-numbers-csv/lotto-results-2001.csv", std::ref(dataset01));
+    std::vector<int> generatedTicket;
+    checkNumbers("Lottery-numbers-csv/lotto-results-2001.csv", std::ref(generatedTicket));
 
-    genTicket.join();
-    readWinnings01.join();
+    checkNumbers(std::ref(ticket), std::ref(generatedTicket));
 
-    print(tickets);
-    printCSV(dataset01);
+    std::cout << counter << std::endl;
+
+    print(ticket);
+    //printCSV(generatedTicket);
 
     return 0;
 }
