@@ -1,24 +1,28 @@
 #include <iostream>
 #include <thread>
-
+#include <mutex>
 #include "LotteryGenerator.h"
 #include "LotteryResults.h"
 #include "LotteryChecker.h"
 
+
 int main() {
 
-    std::vector<int> ticket;
-    generateNumbers(std::ref(ticket));
-
+    std::vector<int> myticket;
     std::vector<int> generatedTicket;
-    checkNumbers("Lottery-numbers-csv/lotto-results-2001.csv", std::ref(generatedTicket));
 
-    checkNumbers(std::ref(ticket), std::ref(generatedTicket));
+    std::thread generate (generateNumbers, std::ref(myticket));
+    print(myticket);
 
-    std::cout << counter << std::endl;
+    std::thread results (checkResults, "Lottery-numbers-csv/lotto-results-2001.csv", std::ref(generatedTicket));
+    printCSV(generatedTicket);
 
-    print(ticket);
-    //printCSV(generatedTicket);
+    std::thread check (checkNumbers, myticket, generatedTicket);
+    std::cout << "Common numbers: " << counter << std::endl;
+
+    generate.join();
+    check.join();
+    results.join();
 
     return 0;
 }

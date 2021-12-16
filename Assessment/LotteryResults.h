@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <mutex>
 
 // A struct to hold the ticket information
 struct Ticket {                                                                                                   // the date of the winning numbers
@@ -19,7 +20,8 @@ std::ostream& operator<<(std::ostream& out, const Ticket& value) {              
 }
 
 // Check Number Function: Load a CSV file, parse through and print the correct values
-void checkNumbers(const std::string &filename, std::vector<int> &dataset) {
+void checkResults(const std::string &filename, std::vector<int> &dataset) {
+  std::unique_lock<std::mutex> lock(mu);
   std::ifstream file(filename);                                                                                   // input the file name in to file variable
   std::string line = "";                                                                                          // empty line
   int linecounter = 0;                                                                                            // line counter set to 0
@@ -32,8 +34,7 @@ void checkNumbers(const std::string &filename, std::vector<int> &dataset) {
       }
 
       std::stringstream ss(line);                                                                                 // create a string stream for the line
-      int counter = 0;                                                                                            // set a new counter to 0
-      //Ticket ticket;                                                                                            // Create ticket obj which we use to parse each line to the ticket
+      int counter = 0;                                                                                            // set a new counter to 0                                                                                           // Create ticket obj which we use to parse each line to the ticket
 
       while (ss.good()) {                                                                                         // while the ss is still working
         std::string value;                                                                                        // new string for holding the value
@@ -43,28 +44,21 @@ void checkNumbers(const std::string &filename, std::vector<int> &dataset) {
         if (counter <= 1)                                                                                         // error checking; if the counter is less than or equal to 1
           continue;                                                                                               // continue to the next column                                                                                  // set the value to the date for the ticket
         if (counter == 3)                                                                                         // else if counter is equal to 3
-          //ticket.numbers[0] = std::stoi(value);                                                                 // set the value to int (stoi) for the first number of the winning ticket
-          dataset.push_back(std::stoi(value)); 
+          dataset.push_back(std::stoi(value));                                                                   // set the value to int (stoi) for the first number of the winning ticket
         else if (counter == 4)                                                                                    // cont...
-          //ticket.numbers[1] = std::stoi(value);
-          dataset.push_back(std::stoi(value)); 
+          dataset.push_back(std::stoi(value));
         else if (counter == 5)
-          //ticket.numbers[2] = std::stoi(value);
           dataset.push_back(std::stoi(value));
         else if (counter == 6)
-          //ticket.numbers[3] = std::stoi(value);
           dataset.push_back(std::stoi(value));
         else if (counter == 7)
-          //ticket.numbers[4] = std::stoi(value);
           dataset.push_back(std::stoi(value));
         else if (counter == 8)
-          //ticket.numbers[5] = std::stoi(value);
           dataset.push_back(std::stoi(value));
         else if (counter == 9)
-          //ticket.numbers[6] = std::stoi(value);
-        dataset.push_back(std::stoi(value));
+          dataset.push_back(std::stoi(value));
       }
-      //dataset.push_back(ticket);                                                                                 // push the ticket to the dataset parameter
+      //dataset.push_back(ticket);                                                                                   // push the ticket to the dataset parameter
     }
   }
   catch (std::exception &e) {                                                                                      // catch the try loop if there is an exception
@@ -81,6 +75,6 @@ void printCSV(const std::vector<T>& v) {                                        
   if (v.empty())                                                                                                   // check if empty or not
     return;                                                                                                        // return; end the function if empty
   for (auto& i : v)                                                                                                // print string
-    std::cout << i << " ";                                                                                         // loop through the vector printing each line
+    std::cout << i << " ";                                                                                   // loop through the vector printing each line
   std::cout << std::endl;
 }
