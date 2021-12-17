@@ -23,61 +23,63 @@ std::ostream& operator<<(std::ostream& out, const Ticket& value) {              
 
 // Check Number Function: Load a CSV file, parse through and print the correct values
 void checkResults(const std::string &filename, std::vector<int> &dataset) {
-  //std::unique_lock<std::mutex> lock(mu);                                                                          // lock the function using the mutex
-  //cv.wait(lock, []{ return ready; });
-  std::ifstream file(filename);                                                                                   // input the file name in to file variable
-  std::string line = "";                                                                                          // empty line
-  int linecounter = 0;                                                                                            // line counter set to 0
+  std::lock_guard<std::mutex> lock(mu);                                                                             // lock the function using the mutex
+    std::ifstream file(filename);                                                                                   // input the file name in to file variable
+    std::string line = "";                                                                                          // empty line
+    int linecounter = 0;                                                                                            // line counter set to 0
 
-  try {                                                                                                           // Try and Catch loop
-    while (getline(file, line)) {                                                                                 // while we have the line of the file
-      if (linecounter < 1) {                                                                                      // and if the line counter is less than 1
-        ++linecounter;                                                                                            // increment counter to make sure we have the right line
-        continue;                                                                                                 // continue out of the loop
+    try {                                                                                                           // Try and Catch loop
+      while (getline(file, line)) {                                                                                 // while we have the line of the file
+        if (linecounter < 1) {                                                                                      // and if the line counter is less than 1
+          ++linecounter;                                                                                            // increment counter to make sure we have the right line
+          continue;                                                                                                 // continue out of the loop
+        }
+
+        std::stringstream ss(line);                                                                                 // create a string stream for the line
+        int counter = 0;                                                                                            // set a new counter to 0                                                                                           // Create ticket obj which we use to parse each line to the ticket
+
+        while (ss.good()) {                                                                                         // while the ss is still working
+          std::string value;                                                                                        // new string for holding the value
+          getline(ss, value, ',');                                                                                  // parse the column converting the value to string with , seperator
+
+          counter++;                                                                                                // increment the counter
+          if (counter <= 1)                                                                                         // error checking; if the counter is less than or equal to 1
+            continue;                                                                                               // continue to the next column                                                                                  // set the value to the date for the ticket
+          if (counter == 3)                                                                                         // else if counter is equal to 3
+            dataset.push_back(std::stoi(value));                                                                    // set the value to int (stoi) for the first number of the winning ticket
+          else if (counter == 4)                                                                                    // cont...
+            dataset.push_back(std::stoi(value));
+          else if (counter == 5)
+            dataset.push_back(std::stoi(value));
+          else if (counter == 6)
+            dataset.push_back(std::stoi(value));
+          else if (counter == 7)
+            dataset.push_back(std::stoi(value));
+          else if (counter == 8)
+            dataset.push_back(std::stoi(value));
+          else if (counter == 9)
+            dataset.push_back(std::stoi(value));
+        }
+        //dataset.push_back(ticket);                                                                                 // push the ticket to the dataset parameter
       }
-
-      std::stringstream ss(line);                                                                                 // create a string stream for the line
-      int counter = 0;                                                                                            // set a new counter to 0                                                                                           // Create ticket obj which we use to parse each line to the ticket
-
-      while (ss.good()) {                                                                                         // while the ss is still working
-        std::string value;                                                                                        // new string for holding the value
-        getline(ss, value, ',');                                                                                  // parse the column converting the value to string with , seperator
-
-        counter++;                                                                                                // increment the counter
-        if (counter <= 1)                                                                                         // error checking; if the counter is less than or equal to 1
-          continue;                                                                                               // continue to the next column                                                                                  // set the value to the date for the ticket
-        if (counter == 3)                                                                                         // else if counter is equal to 3
-          dataset.push_back(std::stoi(value));                                                                   // set the value to int (stoi) for the first number of the winning ticket
-        else if (counter == 4)                                                                                    // cont...
-          dataset.push_back(std::stoi(value));
-        else if (counter == 5)
-          dataset.push_back(std::stoi(value));
-        else if (counter == 6)
-          dataset.push_back(std::stoi(value));
-        else if (counter == 7)
-          dataset.push_back(std::stoi(value));
-        else if (counter == 8)
-          dataset.push_back(std::stoi(value));
-        else if (counter == 9)
-          dataset.push_back(std::stoi(value));
-      }
-      //dataset.push_back(ticket);                                                                                   // push the ticket to the dataset parameter
+      ready++;                                                                                                       // increment the ready counter by 1
+      mu.unlock();                                                                                                   // unlock the mutex
+      cv.notify_one();                                                                                               // notify the condition variable
     }
-  }
-  catch (std::exception &e) {                                                                                      // catch the try loop if there is an exception
-    std::cerr << "Error occured during the file read operation: " << e.what() << std::endl;                        // output error message
-    file.close();                                                                                                  // close the file
-    return;                                                                                                        // return ending the function
-  }
-  file.close();                                                                                                    // if program runs with no exception, close the file
+    catch (std::exception &e) {                                                                                      // catch the try loop if there is an exception
+      std::cerr << "Error occured during the file read operation: " << e.what() << std::endl;                        // output error message
+      file.close();                                                                                                  // close the file
+      return;                                                                                                        // return ending the function
+    }
+    file.close();                                                                                                    // if program runs with no exception, close the file
 }
 
 // print function                                                                                                  
-template<typename T>                                                                                               // template function
-void printCSV(const std::vector<T>& v) {                                                                           // using the vector T 
-  if (v.empty())                                                                                                   // check if empty or not
-    return;                                                                                                        // return; end the function if empty
-  for (auto& i : v)                                                                                                // print string
-    std::cout << i << " ";                                                                                   // loop through the vector printing each line
+template<typename T>                                                                                                 // template function
+void printCSV(const std::vector<T>& v) {                                                                             // using the vector T 
+  if (v.empty())                                                                                                     // check if empty or not
+    return;                                                                                                          // return; end the function if empty
+  for (auto& i : v)                                                                                                  // print string
+    std::cout << i << " ";                                                                                           // loop through the vector printing each line
   std::cout << std::endl;
 }

@@ -10,7 +10,7 @@
 
 // Generate random numbers function
 void generateNumbers(std::vector<int> &vec) {
-  std::unique_lock<std::mutex> lock(mu);
+  std::lock_guard<std::mutex> lock(mu);                                                        // use the mutex to lock the loop
   std::vector<int>::iterator it;                                                               // create a new vector that will be used to iterator through
     IRandom rand(1, 50);                                                                       // loop through the numbers generated and push to vec
     for (auto i = 0; i < 7; i++) {
@@ -19,6 +19,9 @@ void generateNumbers(std::vector<int> &vec) {
     }
     it = std::unique(vec.begin(), vec.end());                                                  // loop through the iteratotion vector created above
     vec.resize(std::distance(vec.begin(), it));                                                // resize the vector based on the starting point and the 
+  ready++;                                                                                     // set the ready counter to 1
+  mu.unlock();                                                                                 // unlock the mutex
+  cv.notify_one();                                                                             // notify the condition variable
 }
 
 // print function
