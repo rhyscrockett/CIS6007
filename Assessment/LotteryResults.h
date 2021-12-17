@@ -21,7 +21,6 @@ std::ostream& operator<<(std::ostream& out, const Ticket& value) {              
 
 // Check Number Function: Load a CSV file, parse through and print the correct values
 void checkResults(const std::string &filename, std::vector<int> &dataset) {
-  std::unique_lock<std::mutex> lock(mu);
   std::ifstream file(filename);                                                                                   // input the file name in to file variable
   std::string line = "";                                                                                          // empty line
   int linecounter = 0;                                                                                            // line counter set to 0
