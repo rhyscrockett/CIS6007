@@ -101,8 +101,8 @@ int main() {
     checkNumbers(myticket, dataset);
     clearDataset(dataset);
 
-    auto eTimer = std::chrono::system_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(eTimer - sTimer).count();
-    std::cout << "Time taken: " << duration << " ms. " << std::endl;
+    auto eTimer = std::chrono::system_clock::now(); // end timer
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(eTimer - sTimer).count(); // calculate the time taken
+    std::cout << "Sequential Time taken: " << duration << " ms. " << std::endl; // print time taken
     return 0;
 }
