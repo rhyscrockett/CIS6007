@@ -6,6 +6,8 @@
 #include <string>
 #include <mutex>
 
+#include "LocksAndCondtions.h"
+
 // A struct to hold the ticket information
 struct Ticket {                                                                                                   // the date of the winning numbers
   int numbers[7];                                                                                                 // an array with the 7 winning numbers 
@@ -21,6 +23,8 @@ std::ostream& operator<<(std::ostream& out, const Ticket& value) {              
 
 // Check Number Function: Load a CSV file, parse through and print the correct values
 void checkResults(const std::string &filename, std::vector<int> &dataset) {
+  //std::unique_lock<std::mutex> lock(mu);                                                                          // lock the function using the mutex
+  //cv.wait(lock, []{ return ready; });
   std::ifstream file(filename);                                                                                   // input the file name in to file variable
   std::string line = "";                                                                                          // empty line
   int linecounter = 0;                                                                                            // line counter set to 0

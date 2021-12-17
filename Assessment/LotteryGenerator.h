@@ -6,9 +6,11 @@
 #include <mutex>
 
 #include "IRandom.h"
+#include "LocksAndCondtions.h"
 
 // Generate random numbers function
 void generateNumbers(std::vector<int> &vec) {
+  std::unique_lock<std::mutex> lock(mu);
   std::vector<int>::iterator it;                                                               // create a new vector that will be used to iterator through
     IRandom rand(1, 50);                                                                       // loop through the numbers generated and push to vec
     for (auto i = 0; i < 7; i++) {
