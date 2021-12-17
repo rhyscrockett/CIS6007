@@ -16,18 +16,18 @@ void clearDataset(std::vector<int> &vec) {
 
 int main() {
 
-    std::vector<int> myticket;
+    std::vector<int> myticket; // data structure to store the ticket generated
     //std::vector<int> dataset;
     // Create the datasets for each CSV file
-    std::vector<int> dataset01, dataset02, dataset03, dataset04, dataset05, dataset06, dataset07, dataset08,
+    std::vector<int> dataset01, dataset02, dataset03, dataset04, dataset05, dataset06, dataset07, dataset08,            // different data structures to store the CSV winning numbers
                        dataset09, dataset10, dataset11, dataset12, dataset13, dataset14, dataset15,
-                        dataset16, dataset17, dataset18, dataset19, dataset20;
+                        dataset16, dataset17, dataset18, dataset19, dataset20;                                          // multiple datastructures needed because different threads
     
     auto sTimer = std::chrono::system_clock::now(); // start a timer
     std::thread gen (generateNumbers, std::ref(myticket)); // generate a ticket using a thread
     print(myticket); // print the ticket
 
-    
+    // start the individual threads for checking results and checking comparisons
     std::thread cr1 (checkResults, "Lottery-numbers-csv/lotto-results-2001.csv", std::ref(dataset01));
     std::thread cn1 (checkNumbers, std::ref(myticket), std::ref(dataset01));
 
@@ -88,6 +88,7 @@ int main() {
     std::thread cr20 (checkResults, "Lottery-numbers-csv/lotto-results-2020.csv", std::ref(dataset20));
     std::thread cn20 (checkNumbers, std::ref(myticket), std::ref(dataset20));
 
+    // lastly join all threads to synchronize
     gen.join();
     cr1.join();
     cn1.join();

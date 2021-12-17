@@ -1,0 +1,19 @@
+# Compiler: Use the gcc-c++ - g++
+CC = g++
+
+# Compiler Flags: -g adds debugging info, -Wall turn on compiler warnings
+CFLAGS = -g -Wall
+
+default:
+	LotteryApplication
+
+LotteryApplication: LotteryApplication.o
+	$(CC) $(CFLAGS) -o LotteryApplication LotteryApplication.o
+
+# Include all files for lottery application
+LotteryApplication.o: LotteryApplication.cpp LotteryGenerator.h LotteryResults.h LotteryChecker.h
+	$(CC) $(CFLAGS) -c LotteryApplication.cpp
+
+# Clean project
+clean:
+	$(RM) Assessment *.o
